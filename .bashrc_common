@@ -127,3 +127,7 @@ fi
 export PATH=${PATH/\/usr\/local\/buildtools\/java\/jdk\/bin:/}
 
 alias namespaces='git grep ".exportTo(" | cut -d : -f 2| sort | uniq'
+
+if [ -f "$HOME/.local/bin/env" ]; then
+    source "$HOME/.local/bin/env"
+fi
