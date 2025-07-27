@@ -1,4 +1,4 @@
-call pathogen#infect()
+" call pathogen#infect()
 
 set tabstop=2
 set shiftwidth=2
