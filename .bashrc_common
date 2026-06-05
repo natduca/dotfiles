@@ -44,12 +44,13 @@ export PATH=$PATH:~/depot_tools
 
 alias qo='quickopen'
 
-alias ga='git add .'
-alias gc='git commit -m .'
+alias gau='git add .'
 alias gca='git commit --amend'
 alias gcaa='git add -u :/; GIT_EDITOR=true EDITOR=true git commit --amend'
 alias gs='git status'
 alias gpr='git pull --rebase; git submodule update --init --recursive'
+alias gcac='git add -u && commit_msg="$(git-automessage)" && git commit -m "$commit_msg" && echo "Committed with message: $commit_msg"'
+
 function gg() { git grep "$@" -- "*.cpp" "*.h" "*.cc" "*.c"; }
 if test `uname` == Darwin; then
 alias git-gui='/usr/local/git/bin/git gui'
@@ -131,3 +132,9 @@ alias namespaces='git grep ".exportTo(" | cut -d : -f 2| sort | uniq'
 if [ -f "$HOME/.local/bin/env" ]; then
     source "$HOME/.local/bin/env"
 fi
+
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  export BROWSER=wslview
+fi
+
+export PATH="$PATH:~/Local/NatNotes"
