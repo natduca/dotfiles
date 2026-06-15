@@ -59,7 +59,7 @@ def IsWSL():
     return False
 
 def Update():
-  assert os.path.samefile(os.path.expanduser('~/home'),
+  assert os.path.samefile(os.path.expanduser('~/dotfiles'),
                           _HOME_PATH)
   links = []
   links.append(Link('~/.emacs', '.emacs'))

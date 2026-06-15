@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if ! ~/home/bin/is_samefile `cat ~/.markutils/m1` `pwd`; then
+if ! ~/dotfiles/bin/is_samefile `cat ~/.markutils/m1` `pwd`; then
   if test `pwd` != `cat ~/.markutils/m1`; then
     if test -e ./Makefile; then
         if test -n `which is_subdir`; then

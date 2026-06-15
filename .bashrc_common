@@ -74,7 +74,7 @@ fi
 if test `uname` == Darwin; then
 alias mt='mvim --remote-tab'
 alias python32='VERSIONER_PYTHON_PREFER_32_BIT=true python'
-source ~/home/bin/git-completion.bash
+source ~/dotfiles/bin/git-completion.bash
 fi
 
 alias gdb-new-run-webkit-tests='new-run-webkit-tests --child-processes=1 --no-retry-failures --noshow-results --time-out-ms=99999999 --startup-dialog'

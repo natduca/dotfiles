@@ -50,7 +50,7 @@
     (normal-top-level-add-to-load-path '("."))
     (normal-top-level-add-subdirs-to-load-path)))
 
-(let ((home-el-dir (expand-file-name "~/home/elisp")))
+(let ((home-el-dir (expand-file-name "~/dotfiles/elisp")))
   (when (file-exists-p home-el-dir)
     (let ((default-directory home-el-dir))
       (normal-top-level-add-to-load-path '("."))
@@ -181,7 +181,7 @@
 
 ; c/c++
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load-file "~/home/google-c-style.el")
+(load-file "~/dotfiles/google-c-style.el")
 
 (defun my-c-common-hook ()
   (all-mode-hook)
@@ -712,7 +712,7 @@ not a git repository.."
    (when (get-buffer-process (current-buffer))
      (kill-compilation)
      )
-   (compile (expand-file-name "~/home/bin/do_g1_make"))
+   (compile (expand-file-name "~/dotfiles/bin/do_g1_make"))
    )
   )
 
@@ -879,7 +879,7 @@ not a git repository.."
 
 (defun gjslint-telemetry()
   (interactive)
-  (compile (format "%s" (expand-file-name "~/home/bin/gjslint_telemetry")))
+  (compile (format "%s" (expand-file-name "~/dotfiles/bin/gjslint_telemetry")))
   )
 
 (defun gjslint-tracing()
@@ -898,9 +898,9 @@ not a git repository.."
 
 ;; Yasnippet
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/home/yasnippet")
+(add-to-list 'load-path "~/dotfiles/yasnippet")
 (require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/home/snippets")
+(add-to-list 'yas-snippet-dirs "~/dotfiles/snippets")
 (yas-global-mode 1)
 (yas-reload-all)
 (defun yas-html-mode-hook ()
