@@ -1,22 +1,8 @@
 H=`dirname $BASH_SOURCE`
 source $H/bin/markutils
 
-alias purge_pyc='find ./ -name \*.pyc | xargs rm -- '
-alias purge_tmps='find ./ -name \*~ | xargs rm -- '
-alias purge='purge_pyc; purge_tmps'
-alias xterm='xterm -bg black -fg white -sb -sl 5000'
-
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
-}
-
-function is_android {
-  if [ -d "${ENVSETUP_GYP_CHROME_SRC}" ]; then
-    echo "(android) "
-
-
-  fi
-  echo ""
 }
 
 if test "x$TERM" == "xdumb"; then
@@ -28,21 +14,15 @@ fi
 elif test "x$MSYSTEM" == "xMINGW32"; then
 export PS1='\h:\w \$ '
 elif test "x$OSTYPE" != "xcygwin"; then
+
 if test "x$SSH_CLIENT" != "x"; then
-export PS1='$(is_android)$(parse_git_branch)\[\e[0;33m\]\h:\w\[\e[0m\] \$ '
+export PS1='$(parse_git_branch)\[\e[0;33m\]\h:\w\[\e[0m\] \$ '
 else
-export PS1='$(is_android)$(parse_git_branch)\[\e[0;32m\]\w\[\e[0m\] \$ '
+export PS1='$(parse_git_branch)\[\e[0;32m\]\w\[\e[0m\] \$ '
 fi
 fi
 
 export PATH=$PATH:$H/bin
-export PATH=$PATH:$H/quickopen
-export PATH=$PATH:$H/trace_event_viewer
-export PATH=$PATH:$H/adb_trace
-export PATH=$PATH:$H/stgit
-export PATH=$PATH:~/depot_tools
-
-alias qo='quickopen'
 
 alias gau='git add .'
 alias gca='git commit --amend'
@@ -51,86 +31,8 @@ alias gs='git status'
 alias gpr='git pull --rebase; git submodule update --init --recursive'
 alias gcac='git add -u && commit_msg="$(git-automessage)" && git commit -m "$commit_msg" && echo "Committed with message: $commit_msg"'
 
-function gg() { git grep "$@" -- "*.cpp" "*.h" "*.cc" "*.c"; }
-if test `uname` == Darwin; then
-alias git-gui='/usr/local/git/bin/git gui'
-else
-alias git-gui='git gui'
-fi
-
-CHROME_FLAGS="--enable-threaded-compositing --force-compositing-mode --enable-impl-side-painting --enable-skia-benchmarking --allow-webui-compositing"
-if test `uname` == Darwin; then
-  CHROME_APP="Chromium.app/Contents/MacOS/Chromium"
-else
-  CHROME_APP=chrome
-fi
-
-alias chrome_debug='`cat ~/.markutils/m1`/out/Debug/${CHROME_APP} $CHROME_FLAGS'
-alias chrome_release='`cat ~/.markutils/m1`/out/Release/${CHROME_APP} $CHROME_FLAGS'
-if test `uname` == Darwin; then
-  alias chrome_canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary $CHROME_FLAGS'
-fi
-
-if test `uname` == Darwin; then
-alias mt='mvim --remote-tab'
-alias python32='VERSIONER_PYTHON_PREFER_32_BIT=true python'
-source ~/dotfiles/bin/git-completion.bash
-fi
-
-alias gdb-new-run-webkit-tests='new-run-webkit-tests --child-processes=1 --no-retry-failures --noshow-results --time-out-ms=99999999 --startup-dialog'
-
-
-alias nrwkt-dbg='new-run-webkit-tests --debug --no-show-results --no-new-test-results --no-retry-failures'
-alias gdb-nrwkt-dbg='gdb-new-run-webkit-tests --debug --no-show-results --no-new-test-results --no-retry-failures'
-
-alias tev='trace-event-viewer'
-
-
-
-
-export GYP_GENERATORS=ninja
-
-if [ -e `cat ~/.markutils/m1`/third_party/llvm-build ]; then
-  export PATH=`cat ~/.markutils/m1`/third_party/llvm-build/Release+Asserts/bin:$PATH
-fi
-
-function do_gyp {
-  pushd `pwd`
-  cd `cat ~/.markutils/m$1`
-  if test "$1" == "1"; then
-    CC=clang CXX=clang++ ./build/gyp_chromium -Dclang=1 -Gconfig=$2
-  else
-    echo clank mode
-    ./build/gyp_chromium -Gconfig=$2
-  fi
-  popd
-}
-
-alias gyp_debug='do_gyp 1 Debug'
-alias gyp_release='do_gyp 1 Release'
-
-alias clank_gyp_debug='do_gyp 2 Debug'
-alias clank_gyp_release='do_gyp 2 Release'
-
-
-if [ -x ~/goma/goma_ctl.sh ]; then
-  export PATH=~/goma:$PATH
-fi
-
-alias ssh_with_adb_forwarding='ssh -C -R 5037:localhost:5037 -R 10000:localhost:10000'
-
-
 if test `uname` == Darwin; then
   export PATH=$PATH:/Applications/Sublime\ Text.app/Contents/SharedSupport/bin
-fi
-
-# Remove wrong JDK /usr/local/buildtools/java/jdk/bin from PATH
-export PATH=${PATH/\/usr\/local\/buildtools\/java\/jdk\/bin:/}
-
-alias namespaces='git grep ".exportTo(" | cut -d : -f 2| sort | uniq'
-
-if [ -f "$HOME/.local/bin/env" ]; then
-    source "$HOME/.local/bin/env"
 fi
 
 if grep -qi microsoft /proc/version 2>/dev/null; then

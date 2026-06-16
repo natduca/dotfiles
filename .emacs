@@ -150,7 +150,6 @@
  '(ido-enable-flex-matching t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(quickopen-curses-fullscreen nil)
  '(vc-follow-symlinks t))
 
 (setq-default indent-tabs-mode nil)
@@ -841,7 +840,6 @@ not a git repository.."
 (require 'quickopen)
 
 (when (fboundp 'scroll-bar-mode)
-  (require 'nyan-mode)
   (scroll-bar-mode 0)
   (set-variable 'nyan-bar-length 16)
   )
@@ -894,20 +892,6 @@ not a git repository.."
       )
     )
   )
-
-
-;; Yasnippet
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/dotfiles/yasnippet")
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/dotfiles/snippets")
-(yas-global-mode 1)
-(yas-reload-all)
-(defun yas-html-mode-hook ()
-  (all-mode-hook)
-  (local-set-key (kbd "C-i") 'indent-for-tab-command)
-  )
-(add-hook 'html-mode-hook 'yas-html-mode-hook)
 
 
 ;; Server
